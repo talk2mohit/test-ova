@@ -4,7 +4,8 @@ images:
     units:
     - floor: builtin%bootstrap
       build: |
-        echo "key1: value1" > /dest/1.yaml
+        mkdir $DESTDIR/etc
+        echo "key1: value1" > $DESTDIR/etc/CvpDut.yaml
   test/ova:
     units:
     - image: .%ova
