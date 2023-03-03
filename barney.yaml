@@ -1,0 +1,16 @@
+images:
+
+  ova:
+    units:
+    - floor: builtin%bootstrap
+      sources: [ ., code.arista.io/cv/ova-builds ]
+      build: |
+        YAML=/src/code.arista.io/cv/ova-builds/CvpDut.yaml
+        grep cvpVersion: "$YAML" | awk '{print $2}' > /dest/version-url
+        wget -O - $(cat /dest/version-url) | awk -F\" '{print $4}' > /dest/version
+        version=$(cat /dest/version)
+        grep ova:.*master "$YAML" | awk '{print $2}' | sed -e 's/{cvpVersion}/'${version}/ > /dest/ova-download-url
+        wget -O /dest/cvp.ova $(cat /dest/ova-download-url)
+  test/ova:
+    units:
+    - image: .%ova
