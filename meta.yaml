@@ -1,0 +1,3 @@
+reponame: code.arista.io/cv/test-ova
+x-bar:
+  version: disabled
